@@ -10,7 +10,7 @@
 
       <div>
         wifi signal:
-        <span class="value">{{ wifiQuality }}</span>
+        <span class="value">{{ wifiQuality }}%</span>
       </div>
       <div>time: <span class="value">n.a.</span></div>
       <div>
