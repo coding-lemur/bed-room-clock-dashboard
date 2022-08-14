@@ -41,8 +41,6 @@ export default {
   },
   methods: {
     async loadData() {
-      console.log('🍓')
-
       const resp = await fetch('/api/info')
       const data = await resp.json()
       const { system, network } = data
