@@ -35,8 +35,11 @@ export default {
       version: undefined,
       deviceId: undefined,
       wifiQuality: undefined,
-      uptime: undefined,
-      timer: undefined,
+      uptime: undefined, // in seconds
+
+      // timers
+      dataTimer: undefined,
+      uptimeTimer: undefined,
     }
   },
   computed: {
@@ -63,14 +66,23 @@ export default {
       if (!this.uptime) {
         this.uptime = system.uptime
       }
+    },
+    updateUptime() {
+      if (!this.uptime) {
+        return
+      }
+
+      this.updateUptime++
     }
   },
   beforeMount() {
-    this.timer = setInterval(async () => { await this.loadData() }, 30000)
+    this.dataTimer = setInterval(async () => { await this.loadData() }, 30000)
+    this.uptimeTimer = setInterval(this.updateUptime, 1000)
     this.loadData()
   },
   beforeUnmount() {
-    clearInterval(this.timer);
+    clearInterval(this.uptimeTimer)
+    clearInterval(this.dataTimer)
   }
 }
 </script>
