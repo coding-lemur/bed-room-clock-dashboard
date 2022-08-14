@@ -5,7 +5,7 @@
     <section id="device-info" class="mb-3">
       <h2>Device Info</h2>
 
-      <div>firmware version: <span class="value">{{ version }}</span></div>
+      <div>version: <span class="value">{{ version }}</span></div>
       <div>device ID: <strong class="value">{{ deviceId }}</strong></div>
 
       <div>
@@ -41,6 +41,8 @@ export default {
   },
   methods: {
     async loadData() {
+      console.log('🍓')
+
       const resp = await fetch('/api/info')
       const data = await resp.json()
       const { system, network } = data
@@ -49,13 +51,13 @@ export default {
       this.deviceId = system.deviceId
       this.wifiQuality = network.wifiQuality
       this.uptime = humanizeDuration(system.uptime * 1000)
-    },
-    beforeMount() {
-      this.timer = setInterval(this.loadData, 30000)
-    },
-    beforeUnmount() {
-      clearInterval(this.timer);
-    },
+    }
+  },
+  beforeMount() {
+    this.timer = setInterval(this.loadData(), 30000)
+  },
+  beforeUnmount() {
+    clearInterval(this.timer);
   }
 }
 </script>
