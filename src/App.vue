@@ -72,12 +72,13 @@ export default {
         return
       }
 
-      this.updateUptime++
+      this.uptime++
     }
   },
   beforeMount() {
     this.dataTimer = setInterval(async () => { await this.loadData() }, 30000)
     this.uptimeTimer = setInterval(this.updateUptime, 1000)
+
     this.loadData()
   },
   beforeUnmount() {
