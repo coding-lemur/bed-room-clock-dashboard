@@ -1,5 +1,9 @@
 # bedroom-clock-dashboard
 
+## Description
+
+It's the dashboard for the (https://github.com/coding-lemur/bed-room-clock)[Bed-Room Clock]
+
 ## Project setup
 ```
 npm install
