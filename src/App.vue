@@ -52,7 +52,7 @@ export default {
     }
   },
   beforeMount() {
-    this.timer = setInterval(this.loadData(), 30000)
+    this.timer = setInterval(async () => { await this.loadData() }, 30000)
   },
   beforeUnmount() {
     clearInterval(this.timer);
