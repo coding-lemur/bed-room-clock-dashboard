@@ -15,7 +15,7 @@
       <div>time: <span class="value">n.a.</span></div>
       <div>
         uptime:
-        <span class="value">{{ uptime }}</span>
+        <span class="value">{{ formatedUptime }}</span>
       </div>
     </section>
   </div>
@@ -39,16 +39,30 @@ export default {
       timer: undefined,
     }
   },
+  computed: {
+    formatedUptime() {
+      return humanizeDuration(this.uptime * 1000)
+    },
+  },
   methods: {
     async loadData() {
       const resp = await fetch('/api/info')
       const data = await resp.json()
       const { system, network } = data
 
-      this.version = data.version
-      this.deviceId = system.deviceId
+      if (!this.version) {
+        this.version = data.version
+      }
+
+      if (!this.deviceId) {
+        this.deviceId = system.deviceId
+      }
+
       this.wifiQuality = network.wifiQuality
-      this.uptime = humanizeDuration(system.uptime * 1000)
+
+      if (!this.uptime) {
+        this.uptime = system.uptime
+      }
     }
   },
   beforeMount() {
