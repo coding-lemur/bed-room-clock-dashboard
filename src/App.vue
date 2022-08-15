@@ -5,19 +5,26 @@
     <section id="device-info" class="mb-3">
       <h2>Device Info</h2>
 
-      <div>version: <span class="value">{{ version }}</span></div>
-      <div>device ID: <strong class="value">{{ deviceId }}</strong></div>
-
-      <div>
-        wifi signal:
-        <span class="value">{{ wifiQuality }}%</span>
-      </div>
-      <div>time: <span class="value">n.a.</span></div>
-      <div>
-        uptime:
-        <span class="value">{{ formatedUptime }}</span>
-      </div>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <font-awesome-icon icon="fa-solid fa-code-branch" /> {{ version ?? 'n.a.' }}
+        </li>
+        <li class="list-group-item">
+          <font-awesome-icon icon="fa-solid fa-barcode" /> {{ deviceId ?? 'n.a.' }}
+        </li>
+        <li class="list-group-item">
+          <font-awesome-icon icon="fa-solid fa-clock" /> n.a.
+        </li>
+        <li class="list-group-item">
+          <font-awesome-icon icon="fa-solid fa-wifi" /> {{ wifiQuality ?? '0' }}%
+        </li>
+        <li class="list-group-item">
+          <font-awesome-icon icon="fa-solid fa-hourglass" /> {{ formatedUptime }}
+        </li>
+      </ul>
     </section>
+
+
   </div>
 </template>
 
