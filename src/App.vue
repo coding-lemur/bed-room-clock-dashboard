@@ -16,10 +16,23 @@
           <font-awesome-icon icon="fa-solid fa-clock" /> n.a.
         </li>
         <li class="list-group-item">
-          <font-awesome-icon icon="fa-solid fa-wifi" /> {{ wifiQuality ?? '0' }}%
+          <font-awesome-icon icon="fa-solid fa-wifi" /> {{ wifiQuality ?? '0' }} %
         </li>
         <li class="list-group-item">
           <font-awesome-icon icon="fa-solid fa-hourglass" /> {{ formatedUptime }}
+        </li>
+      </ul>
+    </section>
+
+    <section id="sensor-values" class="mb-3">
+      <h2>Sensor Values</h2>
+
+      <ul class="list-group">
+        <li class="list-group-item">
+          <font-awesome-icon icon="fa-solid fa-temperature-half" /> {{ temperature ?? 'n.a.' }} °C
+        </li>
+        <li class="list-group-item">
+          <font-awesome-icon icon="fa-solid fa-droplet" /> {{ humidity ?? 'n.a.' }} %
         </li>
       </ul>
     </section>
@@ -43,6 +56,8 @@ export default {
       deviceId: undefined,
       wifiQuality: undefined,
       uptime: undefined, // in seconds
+      temperature: undefined,
+      humidity: undefined,
 
       // timers
       dataTimer: undefined,
@@ -58,7 +73,7 @@ export default {
     async loadData() {
       const resp = await fetch('/api/info')
       const data = await resp.json()
-      const { system, network } = data
+      const { system, network, values } = data
 
       if (!this.version) {
         this.version = data.version
@@ -73,6 +88,9 @@ export default {
       if (!this.uptime) {
         this.uptime = system.uptime
       }
+
+      this.temperature = values.temp
+      this.humidity = values.humidity
     },
     updateUptime() {
       if (!this.uptime) {
