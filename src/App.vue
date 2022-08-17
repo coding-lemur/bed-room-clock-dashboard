@@ -37,7 +37,18 @@
       </ul>
     </section>
 
+    <section id="settings">
+      <h2>Settings</h2>
 
+      <label for="brightness" class="form-label">brightness</label>
+      <input type="range" class="form-range" id="brightness" min="0" max="255" value="255">
+    </section>
+
+    <section id="admin-actions" class="mb-3">
+      <h2>Admin Stuff</h2>
+
+      <button type="button" class="btn btn-danger" @click="hardReset()">hard reset</button>
+    </section>
   </div>
 </template>
 
@@ -98,6 +109,14 @@ export default {
       }
 
       this.uptime++
+    },
+    async hardReset() {
+      // TODO show confirmation dialog
+      const resp = await fetch('/api/hard-reset', { method: 'POST' })
+
+      if (!resp.ok) {
+        console.error('hard-reset fail')
+      }
     }
   },
   beforeMount() {
