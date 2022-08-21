@@ -41,7 +41,7 @@
       <h2>Settings</h2>
 
       <label for="brightness" class="form-label">brightness</label>
-      <input type="range" class="form-range" id="brightness" min="0" max="100" :value="brightness"
+      <input type="range" class="form-range" id="brightness" min="0" max="255" :value="brightness"
         @input="e => this.brightness = e.target.value">
     </section>
 
