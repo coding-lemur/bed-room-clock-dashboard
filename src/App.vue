@@ -29,10 +29,10 @@
 
       <ul class="list-group">
         <li class="list-group-item">
-          <font-awesome-icon icon="fa-solid fa-temperature-half" /> {{ info?.vales?.temperature ?? 'n.a.' }} °C
+          <font-awesome-icon icon="fa-solid fa-temperature-half" /> {{ info?.values?.temperature ?? 'n.a.' }} °C
         </li>
         <li class="list-group-item">
-          <font-awesome-icon icon="fa-solid fa-droplet" /> {{ info?.vales?.humidity ?? 'n.a.' }} %
+          <font-awesome-icon icon="fa-solid fa-droplet" /> {{ info?.values?.humidity ?? 'n.a.' }} %
         </li>
       </ul>
     </section>
@@ -81,7 +81,7 @@ export default {
         return 'n.a.'
       }
 
-      return humanizeDuration(this.uptime * 1000)
+      return humanizeDuration(this.info.system.uptime * 1000)
     },
     formatedTime() {
       if (!this.info?.system?.time) {
@@ -118,11 +118,11 @@ export default {
       }
     },
     refreshUptime() {
-      if (!this.uptime) {
+      if (!this.info?.system?.uptime) {
         return
       }
 
-      this.uptime++
+      this.info.system.uptime++
     },
     async hardReset() {
       // TODO show confirmation dialog
