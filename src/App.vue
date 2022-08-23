@@ -40,7 +40,7 @@
     <section id="settings">
       <h2>Settings</h2>
 
-      <div v-show="settings?.brightness">
+      <div v-show="settings?.brightness !== undefined">
         <label for="brightness" class="form-label">brightness</label>
         <input type="range" class="form-range" id="brightness" min="0" max="255" :value="this.settings?.brightness"
           @input="e => this.settings.brightness = e.target.value">
@@ -95,6 +95,11 @@ export default {
   methods: {
     async loadInfo() {
       const resp = await fetch('/api/info')
+
+      if (!resp.ok) {
+        return
+      }
+
       this.info = await resp.json()
     },
     async loadSettings() {
