@@ -29,7 +29,7 @@
 
       <ul class="list-group">
         <li class="list-group-item">
-          <font-awesome-icon icon="fa-solid fa-temperature-half" /> {{ info?.values?.temperature ?? 'n.a.' }} °C
+          <font-awesome-icon icon="fa-solid fa-temperature-half" /> {{ info?.values?.temp ?? 'n.a.' }} °C
         </li>
         <li class="list-group-item">
           <font-awesome-icon icon="fa-solid fa-droplet" /> {{ info?.values?.humidity ?? 'n.a.' }} %
