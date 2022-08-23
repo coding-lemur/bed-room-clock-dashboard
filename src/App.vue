@@ -7,16 +7,16 @@
 
       <ul class="list-group">
         <li class="list-group-item">
-          <font-awesome-icon icon="fa-solid fa-code-branch" /> {{ version ?? 'n.a.' }}
+          <font-awesome-icon icon="fa-solid fa-code-branch" /> {{ info?.version ?? 'n.a.' }}
         </li>
         <li class="list-group-item">
-          <font-awesome-icon icon="fa-solid fa-barcode" /> {{ deviceId ?? 'n.a.' }}
+          <font-awesome-icon icon="fa-solid fa-barcode" /> {{ info?.system?.deviceId ?? 'n.a.' }}
         </li>
         <li class="list-group-item">
-          <font-awesome-icon icon="fa-solid fa-clock" /> n.a.
+          <font-awesome-icon icon="fa-solid fa-clock" /> {{ formatedTime ?? 'n.a.' }}
         </li>
         <li class="list-group-item">
-          <font-awesome-icon icon="fa-solid fa-wifi" /> {{ wifiQuality ?? '0' }} %
+          <font-awesome-icon icon="fa-solid fa-wifi" /> {{ info?.network?.wifiQuality ?? 'n.a.' }} %
         </li>
         <li class="list-group-item">
           <font-awesome-icon icon="fa-solid fa-hourglass" /> {{ formatedUptime }}
@@ -29,10 +29,10 @@
 
       <ul class="list-group">
         <li class="list-group-item">
-          <font-awesome-icon icon="fa-solid fa-temperature-half" /> {{ temperature ?? 'n.a.' }} °C
+          <font-awesome-icon icon="fa-solid fa-temperature-half" /> {{ info?.vales?.temperature ?? 'n.a.' }} °C
         </li>
         <li class="list-group-item">
-          <font-awesome-icon icon="fa-solid fa-droplet" /> {{ humidity ?? 'n.a.' }} %
+          <font-awesome-icon icon="fa-solid fa-droplet" /> {{ info?.vales?.humidity ?? 'n.a.' }} %
         </li>
       </ul>
     </section>
@@ -40,15 +40,17 @@
     <section id="settings">
       <h2>Settings</h2>
 
-      <label for="brightness" class="form-label">brightness</label>
-      <input type="range" class="form-range" id="brightness" min="0" max="255" :value="brightness"
-        @input="e => this.brightness = e.target.value">
+      <div v-show="settings?.brightness">
+        <label for="brightness" class="form-label">brightness</label>
+        <input type="range" class="form-range" id="brightness" min="0" max="255" :value="this.settings?.brightness"
+          @input="e => this.settings.brightness = e.target.value">
+      </div>
     </section>
 
     <section id="admin-actions" class="mb-3">
       <h2>Admin Stuff</h2>
 
-      <button type="button" class="btn btn-primary" @click="saveSettings">Save Settings</button>
+      <button type="button" class="btn btn-primary" @click="saveSettings" :disabled="!settings">Save Settings</button>
       <button type="button" class="btn btn-danger ms-2" @click="hardReset">Hard Reset</button>
     </section>
   </div>
@@ -65,48 +67,35 @@ export default {
   },
   data() {
     return {
-      version: undefined,
-      deviceId: undefined,
-      wifiQuality: undefined,
-      uptime: undefined, // in seconds
-      temperature: undefined,
-      humidity: undefined,
+      info: undefined,
+      settings: undefined,
 
       // timers
       dataTimer: undefined,
       refreshTimer: undefined,
-
-      // settings
-      brightness: undefined,
     }
   },
   computed: {
     formatedUptime() {
+      if (!this.info?.system?.uptime) {
+        return 'n.a.'
+      }
+
       return humanizeDuration(this.uptime * 1000)
     },
+    formatedTime() {
+      if (!this.info?.system?.time) {
+        return 'n.a.'
+      }
+
+      const now = new Date(this.info.system.time * 1000)
+      return now.toLocaleString()
+    }
   },
   methods: {
     async loadInfo() {
       const resp = await fetch('/api/info')
-      const data = await resp.json()
-      const { system, network, values } = data
-
-      if (!this.version) {
-        this.version = data.version
-      }
-
-      if (!this.deviceId) {
-        this.deviceId = system.deviceId
-      }
-
-      this.wifiQuality = network.wifiQuality
-
-      if (!this.uptime) {
-        this.uptime = system.uptime
-      }
-
-      this.temperature = values.temp
-      this.humidity = values.humidity
+      this.info = await resp.json()
     },
     async loadSettings() {
       const resp = await fetch("/api/settings")
@@ -115,15 +104,13 @@ export default {
         return
       }
 
-      const settings = await resp.json()
-      this.brightness = settings.brightness
+      this.settings = await resp.json()
     },
     async saveSettings() {
-      const payload = { brightness: this.brightness }
       const resp = await fetch("/api/settings", {
         method: "POST", headers: {
           'Content-Type': 'application/json'
-        }, body: JSON.stringify(payload)
+        }, body: JSON.stringify(this.settings)
       })
 
       if (!resp.ok) {
