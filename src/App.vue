@@ -80,7 +80,7 @@ export default {
         return 'n.a.'
       }
 
-      return humanizeDuration(this.info.system.uptime * 1000, { units: ['y', 'mo', 'w', 'd', 'h', 'm'] })
+      return humanizeDuration(this.info.system.uptime * 1000, { largest: 5 })
     },
     formatedTime() {
       if (!this.info?.system?.time) {
