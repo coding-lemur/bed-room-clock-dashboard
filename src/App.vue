@@ -80,7 +80,13 @@ export default {
         return 'n.a.'
       }
 
-      return humanizeDuration(this.info.system.uptime * 1000, { largest: 5 })
+      const uptimeMs = this.info.system.uptime * 1000
+      const options = {
+        units: ['y', 'mo', 'w', 'd', 'h', 'm'],
+        round: true
+      }
+
+      return humanizeDuration(uptimeMs, options)
     },
     formatedTime() {
       if (!this.info?.system?.time) {
