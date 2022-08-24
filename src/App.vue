@@ -72,7 +72,6 @@ export default {
 
       // timers
       dataTimer: undefined,
-      refreshTimer: undefined,
     }
   },
   computed: {
@@ -81,7 +80,7 @@ export default {
         return 'n.a.'
       }
 
-      return humanizeDuration(this.info.system.uptime * 1000)
+      return humanizeDuration(this.info.system.uptime * 1000, { units: ['y', 'mo', 'w', 'd', 'h', 'm'] })
     },
     formatedTime() {
       if (!this.info?.system?.time) {
@@ -122,13 +121,6 @@ export default {
         console.error('save settings fail')
       }
     },
-    refreshUptime() {
-      if (!this.info?.system?.uptime) {
-        return
-      }
-
-      this.info.system.uptime++
-    },
     async hardReset() {
       // TODO show confirmation dialog
       const resp = await fetch('/api/hard-reset', { method: 'POST' })
@@ -140,13 +132,11 @@ export default {
   },
   beforeMount() {
     this.dataTimer = setInterval(async () => { await this.loadInfo() }, 30000)
-    this.refreshTimer = setInterval(this.refreshUptime, 1000)
 
     this.loadInfo()
     this.loadSettings()
   },
   beforeUnmount() {
-    clearInterval(this.refreshTimer)
     clearInterval(this.dataTimer)
   }
 }
