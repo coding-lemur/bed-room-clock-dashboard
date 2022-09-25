@@ -46,16 +46,18 @@
           @input="e => this.settings.brightness = e.target.value">
       </div>
 
-      <div v-show="settings?.screenOnDistance">
-        <label for="screenOnDistance" class="form-label">screen on distance (in cm)</label>
-        <input type="range" class="form-range" id="screenOnDistance" min="0" max="255"
-          :value="this.settings?.screenOnDistance" @input="e => this.settings.screenOnDistance = e.target.value">
+      <div v-show="settings?.screenOnDistance" class="input-group mb-3">
+        <input type="number" min="0" max="255" class="form-control" placeholder="screen on distance"
+          :value="this.settings?.screenOnDistance" @input="e => this.settings.screenOnDistance = e.target.value"
+          aria-label="screen on distance" aria-describedby="basic-addon2">
+        <span class="input-group-text" id="basic-addon2">cm</span>
       </div>
 
-      <div v-show="settings?.screenOnInterval">
-        <label for="screenOnInterval" class="form-label">screen on interval (in ms)</label>
-        <input type="number" class="form-range" id="screenOnInterval" min="0" max="300000"
-          :value="this.settings?.screenOnInterval" @input="e => this.settings.screenOnInterval = e.target.value">
+      <div v-show="settings?.screenOnInterval" class="input-group mb-3">
+        <input type="number" min="0" max="300000" class="form-control" placeholder="screen on interval"
+          :value="this.settings?.screenOnInterval" @input="e => this.settings.screenOnInterval = e.target.value"
+          aria-label="screen on interval" aria-describedby="basic-addon2">
+        <span class="input-group-text" id="basic-addon2">ms</span>
       </div>
     </section>
 
