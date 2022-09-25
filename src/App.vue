@@ -40,10 +40,22 @@
     <section id="settings">
       <h2>Settings</h2>
 
-      <div v-show="settings?.brightness !== undefined">
+      <div v-show="settings?.brightness">
         <label for="brightness" class="form-label">brightness</label>
         <input type="range" class="form-range" id="brightness" min="0" max="255" :value="this.settings?.brightness"
           @input="e => this.settings.brightness = e.target.value">
+      </div>
+
+      <div v-show="settings?.screenOnDistance">
+        <label for="screenOnDistance" class="form-label">screen on distance (in cm)</label>
+        <input type="range" class="form-range" id="screenOnDistance" min="0" max="255"
+          :value="this.settings?.screenOnDistance" @input="e => this.settings.screenOnDistance = e.target.value">
+      </div>
+
+      <div v-show="settings?.screenOnInterval">
+        <label for="screenOnInterval" class="form-label">screen on interval (in ms)</label>
+        <input type="number" class="form-range" id="screenOnInterval" min="0" max="300000"
+          :value="this.settings?.screenOnInterval" @input="e => this.settings.screenOnInterval = e.target.value">
       </div>
     </section>
 
@@ -51,7 +63,8 @@
       <h2>Admin Stuff</h2>
 
       <button type="button" class="btn btn-primary" @click="saveSettings" :disabled="!settings">Save Settings</button>
-      <button type="button" class="btn btn-danger ms-2" @click="hardReset">Hard Reset</button>
+      <button type="button" class="btn btn-secondary ms-2" @click="restart">Restart</button>
+      <button type="button" class="btn btn-danger ms-2" @click="hardReset">Factory reset</button>
     </section>
   </div>
 </template>
@@ -135,6 +148,13 @@ export default {
         console.error('hard-reset fail')
       }
     },
+    async restart() {
+      const resp = await fetch('/api/restart', { method: 'POST' })
+
+      if (!resp.ok) {
+        console.error('restart fail')
+      }
+    }
   },
   beforeMount() {
     this.dataTimer = setInterval(async () => { await this.loadInfo() }, 30000)
@@ -149,4 +169,5 @@ export default {
 </script>
 
 <style>
+
 </style>
