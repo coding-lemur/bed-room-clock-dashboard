@@ -10,7 +10,8 @@ It's the dashboard for the [Bed-Room Clock](https://github.com/coding-lemur/bed-
 
 ### Why the dashbaord isn't hosted on the ESP32 directly?
 
-It hosted external (on Github Pages) because on the ESP32 isn't enough space to store all static files for the dashboard. So the ESP32 webserver tunneling all specific request to the Github Pages URL and only execute API requsts internal.
+1. ESP32 have not enough space. If we build the project the static files (js, css, ...) are to big for the internal storage of the ESP. So ESP32s webserver tunneling all specific request to the Github Pages URL and only execute API requsts internal.
+2. If you use the internal storage of the ESP32, you have to flash it for each dashboard update and it's complicated to keep settings because they stored on the device also.
 
 ### Can I selfhost the Dashboard locally?
 
