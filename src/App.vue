@@ -40,23 +40,25 @@
     <section id="settings">
       <h2>Settings</h2>
 
-      <div v-show="settings?.brightness">
+      <div>
         <label for="brightness" class="form-label">brightness</label>
         <input type="range" class="form-range" id="brightness" min="0" max="255" :value="this.settings?.brightness"
           @input="e => this.settings.brightness = e.target.value">
       </div>
 
-      <div v-show="settings?.screenOnDistance" class="input-group mb-3">
-        <input type="number" min="0" max="255" class="form-control" placeholder="screen on distance"
-          :value="this.settings?.screenOnDistance" @input="e => this.settings.screenOnDistance = e.target.value"
-          aria-label="screen on distance" aria-describedby="basic-addon2">
+      <div class="input-group mb-3">
+        <span class="input-group-text">screen on distance</span>
+        <input type="number" min="0" max="255" class="form-control" :value="this.settings?.screenOnDistance"
+          @input="e => this.settings.screenOnDistance = e.target.value" aria-label="screen on distance"
+          aria-describedby="basic-addon2">
         <span class="input-group-text" id="basic-addon2">cm</span>
       </div>
 
-      <div v-show="settings?.screenOnInterval" class="input-group mb-3">
-        <input type="number" min="0" max="300000" class="form-control" placeholder="screen on interval"
-          :value="this.settings?.screenOnInterval" @input="e => this.settings.screenOnInterval = e.target.value"
-          aria-label="screen on interval" aria-describedby="basic-addon2">
+      <div class="input-group mb-3">
+        <span class="input-group-text">screen on interval</span>
+        <input type="number" min="0" max="300000" class="form-control" :value="this.settings?.screenOnInterval"
+          @input="e => this.settings.screenOnInterval = e.target.value" aria-label="screen on interval"
+          aria-describedby="basic-addon2">
         <span class="input-group-text" id="basic-addon2">ms</span>
       </div>
     </section>
@@ -67,6 +69,11 @@
       <button type="button" class="btn btn-primary" @click="saveSettings" :disabled="!settings">Save Settings</button>
       <button type="button" class="btn btn-secondary ms-2" @click="restart">Restart</button>
       <button type="button" class="btn btn-danger ms-2" @click="hardReset">Factory reset</button>
+    </section>
+
+    <section>
+      <font-awesome-icon icon="fa-brands fa-github" /> <a href="https://github.com/coding-lemur/bed-room-clock"
+        target="_blank">https://github.com/coding-lemur/bed-room-clock</a>
     </section>
   </div>
 </template>

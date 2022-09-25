@@ -17,6 +17,8 @@ import {
   faDroplet,
 } from "@fortawesome/free-solid-svg-icons";
 
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+
 library.add([
   faCodeBranch,
   faBarcode,
@@ -25,6 +27,7 @@ library.add([
   faHourglass,
   faTemperatureHalf,
   faDroplet,
+  faGithub,
 ]);
 
 /* import font awesome icon component */
