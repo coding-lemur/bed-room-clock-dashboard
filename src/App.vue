@@ -71,9 +71,9 @@
       <button type="button" class="btn btn-danger ms-2" @click="hardReset">Factory reset</button>
     </section>
 
-    <section>
-      <font-awesome-icon icon="fa-brands fa-github" /> <a href="https://github.com/coding-lemur/bed-room-clock"
-        target="_blank">https://github.com/coding-lemur/bed-room-clock</a>
+    <section class="mt-5">
+      <font-awesome-icon icon="fa-brands fa-github" /> <a
+        href="https://github.com/coding-lemur/bed-room-clock-dashboard" target="_blank">bed-room-clock-dashboard</a>
     </section>
   </div>
 </template>
