@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
+
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCodeBranch, faBarcode, faClock, faWifi, faHourglass } from "@fortawesome/free-solid-svg-icons";
+
 import { loadInfo } from './services/DataService';
 
 function App() {
-  //const [count, setCount] = useState(0)
-
   useEffect(() => {
     const interval = setInterval(async () => {
       const info = await loadInfo()
@@ -17,12 +20,15 @@ function App() {
 
   return (
     <Container className="p-3">
-      <h1 className='header'>BedRoom Clock Dashboard</h1>
+      <h1 className='header'>BedRoom Clock ⏰</h1>
 
       <h2>Device Info</h2>
       <ListGroup>
-        <ListGroup.Item>Cras justo odio</ListGroup.Item>
-        <ListGroup.Item>Cras justo odio</ListGroup.Item>
+        <ListGroup.Item><FontAwesomeIcon icon={faCodeBranch} /></ListGroup.Item>
+        <ListGroup.Item><FontAwesomeIcon icon={faBarcode} /></ListGroup.Item>
+        <ListGroup.Item><FontAwesomeIcon icon={faClock} /></ListGroup.Item>
+        <ListGroup.Item><FontAwesomeIcon icon={faWifi} /></ListGroup.Item>
+        <ListGroup.Item><FontAwesomeIcon icon={faHourglass} /></ListGroup.Item>
       </ListGroup>
     </Container>
   )
