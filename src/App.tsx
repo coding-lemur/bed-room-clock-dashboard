@@ -1,4 +1,5 @@
-import { useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
+import humanizeDuration from 'humanize-duration'
 
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -7,16 +8,64 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCodeBranch, faBarcode, faClock, faWifi, faHourglass } from "@fortawesome/free-solid-svg-icons";
 
 import { loadInfo } from './services/DataService';
+import Info from './services/types/Info';
+import Data from './components/Data';
 
 function App() {
-  useEffect(() => {
-    const interval = setInterval(async () => {
-      const info = await loadInfo()
-      console.log('Logs every minute', info);
-    }, 30 * 1000);
+  const [info, setInfo] = useState<Info | null>()
 
-    return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+  useEffect(() => {
+    async function loadData() {
+      const data = await loadInfo()
+      console.log('🐓', data)
+      setInfo(data)
+    }
+
+    const interval = setInterval(async () => {
+      await loadData()
+      console.log('Logs every minute', info)
+    }, 30 * 1000)
+
+    loadData()
+
+    return () => clearInterval(interval)
   }, [])
+
+  const formattedTime = useMemo(() => {
+    const time = info?.system.time
+
+    if (time === undefined) {
+      return
+    }
+
+    const now = new Date(time * 1000)
+    return now.toLocaleString()
+  }, [info?.system.time])
+
+  const formattedWifiQuality = useMemo(() => {
+    const wifiQuality = info?.network.wifiQuality
+
+    if (wifiQuality === undefined) {
+      return
+    }
+
+    return `${wifiQuality}%`
+  }, [info?.network.wifiQuality])
+
+  const formattedUptime = useMemo(() => {
+    const uptime = info?.system.uptime
+
+    if (uptime === undefined) {
+      return
+    }
+
+    const options = {
+      units: ['y', 'mo', 'w', 'd', 'h', 'm'],
+      round: true
+    }
+
+    return humanizeDuration(uptime * 1000, options)
+  }, [info?.system.uptime])
 
   return (
     <Container className="p-3">
@@ -24,11 +73,11 @@ function App() {
 
       <h2>Device Info</h2>
       <ListGroup>
-        <ListGroup.Item><FontAwesomeIcon icon={faCodeBranch} /></ListGroup.Item>
-        <ListGroup.Item><FontAwesomeIcon icon={faBarcode} /></ListGroup.Item>
-        <ListGroup.Item><FontAwesomeIcon icon={faClock} /></ListGroup.Item>
-        <ListGroup.Item><FontAwesomeIcon icon={faWifi} /></ListGroup.Item>
-        <ListGroup.Item><FontAwesomeIcon icon={faHourglass} /></ListGroup.Item>
+        <ListGroup.Item><Data icon={faCodeBranch} value={info?.version} /></ListGroup.Item>
+        <ListGroup.Item><Data icon={faBarcode} value={info?.system?.deviceId} /></ListGroup.Item>
+        <ListGroup.Item><Data icon={faClock} value={formattedTime} /></ListGroup.Item>
+        <ListGroup.Item><Data icon={faWifi} value={formattedWifiQuality} /></ListGroup.Item>
+        <ListGroup.Item><Data icon={faHourglass} value={formattedUptime} /></ListGroup.Item>
       </ListGroup>
     </Container>
   )
