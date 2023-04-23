@@ -4,7 +4,7 @@ import humanizeDuration from 'humanize-duration'
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 
-import { faCodeBranch, faBarcode, faClock, faWifi, faHourglass, faTemperatureHalf } from "@fortawesome/free-solid-svg-icons";
+import { faCodeBranch, faBarcode, faClock, faWifi, faHourglass, faTemperatureHalf, faDroplet } from "@fortawesome/free-solid-svg-icons";
 
 import { loadInfo } from './services/DataService';
 import Info from './services/types/Info';
@@ -41,16 +41,6 @@ function App() {
     return now.toLocaleString()
   }, [info?.system.time])
 
-  const formattedWifiQuality = useMemo(() => {
-    const wifiQuality = info?.network.wifiQuality
-
-    if (wifiQuality === undefined) {
-      return
-    }
-
-    return `${wifiQuality}%`
-  }, [info?.network.wifiQuality])
-
   const formattedUptime = useMemo(() => {
     const uptime = info?.system.uptime
 
@@ -76,7 +66,7 @@ function App() {
           <ListGroup.Item><Data icon={faCodeBranch} value={info?.version} /></ListGroup.Item>
           <ListGroup.Item><Data icon={faBarcode} value={info?.system?.deviceId} /></ListGroup.Item>
           <ListGroup.Item><Data icon={faClock} value={formattedTime} /></ListGroup.Item>
-          <ListGroup.Item><Data icon={faWifi} value={formattedWifiQuality} /></ListGroup.Item>
+          <ListGroup.Item><Data icon={faWifi} value={info?.network.wifiQuality} unit='%' /></ListGroup.Item>
           <ListGroup.Item><Data icon={faHourglass} value={formattedUptime} /></ListGroup.Item>
         </ListGroup>
       </div>
@@ -84,7 +74,8 @@ function App() {
       <div className="mb-3">
         <h2>Sensor Value</h2>
         <ListGroup>
-          <ListGroup.Item><Data icon={ } /></ListGroup.Item>
+          <ListGroup.Item><Data icon={faTemperatureHalf} value={info?.values?.temp} unit='°C' /></ListGroup.Item>
+          <ListGroup.Item><Data icon={faDroplet} value={info?.values?.humidity} unit='%' /></ListGroup.Item>
         </ListGroup>
       </div>
     </Container >
