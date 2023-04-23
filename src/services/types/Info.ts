@@ -1,4 +1,4 @@
-type Info = {
+export type Info = {
     version: string
     system: {
         deviceId: string
@@ -28,5 +28,3 @@ type Info = {
         humidity: number
     }
 }
-
-export default Info
