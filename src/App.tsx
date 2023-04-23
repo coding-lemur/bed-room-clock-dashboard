@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import humanizeDuration from 'humanize-duration'
+import humanizeDuration, { Unit } from 'humanize-duration'
 
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -49,7 +49,7 @@ function App() {
     }
 
     const options = {
-      units: ['y', 'mo', 'w', 'd', 'h', 'm'],
+      units: ['y', 'mo', 'w', 'd', 'h', 'm'] as Unit[],
       round: true
     }
 
