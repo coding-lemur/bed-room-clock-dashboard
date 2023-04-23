@@ -4,8 +4,7 @@ import humanizeDuration from 'humanize-duration'
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCodeBranch, faBarcode, faClock, faWifi, faHourglass } from "@fortawesome/free-solid-svg-icons";
+import { faCodeBranch, faBarcode, faClock, faWifi, faHourglass, faTemperatureHalf } from "@fortawesome/free-solid-svg-icons";
 
 import { loadInfo } from './services/DataService';
 import Info from './services/types/Info';
@@ -71,15 +70,24 @@ function App() {
     <Container className="p-3">
       <h1 className='header'>BedRoom Clock ⏰</h1>
 
-      <h2>Device Info</h2>
-      <ListGroup>
-        <ListGroup.Item><Data icon={faCodeBranch} value={info?.version} /></ListGroup.Item>
-        <ListGroup.Item><Data icon={faBarcode} value={info?.system?.deviceId} /></ListGroup.Item>
-        <ListGroup.Item><Data icon={faClock} value={formattedTime} /></ListGroup.Item>
-        <ListGroup.Item><Data icon={faWifi} value={formattedWifiQuality} /></ListGroup.Item>
-        <ListGroup.Item><Data icon={faHourglass} value={formattedUptime} /></ListGroup.Item>
-      </ListGroup>
-    </Container>
+      <div className="mb-3">
+        <h2>Device Info</h2>
+        <ListGroup>
+          <ListGroup.Item><Data icon={faCodeBranch} value={info?.version} /></ListGroup.Item>
+          <ListGroup.Item><Data icon={faBarcode} value={info?.system?.deviceId} /></ListGroup.Item>
+          <ListGroup.Item><Data icon={faClock} value={formattedTime} /></ListGroup.Item>
+          <ListGroup.Item><Data icon={faWifi} value={formattedWifiQuality} /></ListGroup.Item>
+          <ListGroup.Item><Data icon={faHourglass} value={formattedUptime} /></ListGroup.Item>
+        </ListGroup>
+      </div>
+
+      <div className="mb-3">
+        <h2>Sensor Value</h2>
+        <ListGroup>
+          <ListGroup.Item><Data icon={ } /></ListGroup.Item>
+        </ListGroup>
+      </div>
+    </Container >
   )
 }
 
