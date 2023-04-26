@@ -1,8 +1,8 @@
-# bedroom-clock-dashboard
+# Bedroom Clock Dashboard
 
 ## Description
 
-It's the dashboard for the [Bed-Room Clock](https://github.com/coding-lemur/bed-room-clock).
+It's the dashboard for the [Bedroom Clock](https://github.com/coding-lemur/bed-room-clock).
 
 ![alt screenshot](screenshot.png)
 
@@ -45,7 +45,7 @@ npm install
 ### Compiles and hot-reloads for development
 
 ```bash
-npm run serve
+npm run dev
 ```
 
 ### Compiles and minifies for production
@@ -53,13 +53,3 @@ npm run serve
 ```bash
 npm run build
 ```
-
-### Lints and fixes files
-
-```bash
-npm run lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
