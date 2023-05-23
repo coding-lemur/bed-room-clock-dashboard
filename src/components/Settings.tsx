@@ -33,7 +33,7 @@ const Settings: FC<SettingsProps> = ({}) => {
         oldState
           ? {
               ...oldState,
-              brightness: Number.parseInt(e.target.value),
+              brightness: Number.parseInt(e.target.value)
             }
           : null
       ),
@@ -46,7 +46,7 @@ const Settings: FC<SettingsProps> = ({}) => {
         oldState
           ? {
               ...oldState,
-              screenOnDistance: Number.parseInt(e.target.value),
+              screenOnDistance: Number.parseInt(e.target.value)
             }
           : null
       ),
@@ -59,7 +59,7 @@ const Settings: FC<SettingsProps> = ({}) => {
         oldState
           ? {
               ...oldState,
-              screenOnInterval: Number.parseInt(e.target.value),
+              screenOnInterval: Number.parseInt(e.target.value)
             }
           : null
       ),

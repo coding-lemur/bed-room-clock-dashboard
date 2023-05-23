@@ -1,5 +1,5 @@
 export type Settings = {
-    brightness: number,
-    screenOnDistance: number,
-    screenOnInterval: number
+  brightness: number
+  screenOnDistance: number
+  screenOnInterval: number
 }

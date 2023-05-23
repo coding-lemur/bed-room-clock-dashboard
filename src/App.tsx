@@ -1,14 +1,22 @@
 import { useState, useEffect, useMemo } from 'react'
 import humanizeDuration, { Unit } from 'humanize-duration'
 
-import Container from 'react-bootstrap/Container';
-import ListGroup from 'react-bootstrap/ListGroup';
+import Container from 'react-bootstrap/Container'
+import ListGroup from 'react-bootstrap/ListGroup'
 
-import { faCodeBranch, faBarcode, faClock, faWifi, faHourglass, faTemperatureHalf, faDroplet } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCodeBranch,
+  faBarcode,
+  faClock,
+  faWifi,
+  faHourglass,
+  faTemperatureHalf,
+  faDroplet
+} from '@fortawesome/free-solid-svg-icons'
 
-import { loadInfo } from './services/DataService';
-import { Info } from './services/types';
-import { Data, Settings } from './components';
+import { loadInfo } from './services/DataService'
+import { Info } from './services/types'
+import { Data, Settings } from './components'
 
 function App() {
   const [info, setInfo] = useState<Info | null>()
@@ -58,9 +66,9 @@ function App() {
 
   return (
     <Container className="p-3">
-      <h1 className='header'>BedRoom Clock ⏰</h1>
+      <h1 className="header">BedRoom Clock ⏰</h1>
 
-      <section id='device-info' className="mb-3">
+      <section id="device-info" className="mb-3">
         <h2>Device Info</h2>
         <ListGroup>
           <ListGroup.Item>
@@ -73,7 +81,7 @@ function App() {
             <Data icon={faClock} value={formattedTime} />
           </ListGroup.Item>
           <ListGroup.Item>
-            <Data icon={faWifi} value={info?.network.wifiQuality} unit='%' />
+            <Data icon={faWifi} value={info?.network.wifiQuality} unit="%" />
           </ListGroup.Item>
           <ListGroup.Item>
             <Data icon={faHourglass} value={formattedUptime} />
@@ -81,20 +89,24 @@ function App() {
         </ListGroup>
       </section>
 
-      <section id='sensor-values' className="mb-3">
+      <section id="sensor-values" className="mb-3">
         <h2>Sensor Value</h2>
         <ListGroup>
           <ListGroup.Item>
-            <Data icon={faTemperatureHalf} value={info?.values?.temp} unit='°C' />
+            <Data
+              icon={faTemperatureHalf}
+              value={info?.values?.temp}
+              unit="°C"
+            />
           </ListGroup.Item>
           <ListGroup.Item>
-            <Data icon={faDroplet} value={info?.values?.humidity} unit='%' />
+            <Data icon={faDroplet} value={info?.values?.humidity} unit="%" />
           </ListGroup.Item>
         </ListGroup>
       </section>
 
       <Settings />
-    </Container >
+    </Container>
   )
 }
 
