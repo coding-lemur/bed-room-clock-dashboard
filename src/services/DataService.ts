@@ -22,10 +22,30 @@ export const loadSettings = async () => {
   return settings
 }
 
+export const saveSettings = async (settings: Settings) => {
+  const resp = await fetch("/api/settings", {
+    method: "POST", headers: {
+      'Content-Type': 'application/json'
+    }, body: JSON.stringify(settings)
+  })
+
+  if (!resp.ok) {
+    throw new Error('save settings fail')
+  }
+}
+
 export const restart = async () => {
   const resp = await fetch('/api/restart', { method: 'POST' })
 
   if (!resp.ok) {
     throw new Error('could not restart the device')
+  }
+}
+
+export const factoryReset = async () => {
+  const resp = await fetch('/api/hard-reset', { method: 'POST' })
+
+  if (!resp.ok) {
+    throw new Error('hard-reset fail')
   }
 }
