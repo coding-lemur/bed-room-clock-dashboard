@@ -14,9 +14,7 @@ import {
   saveSettings
 } from '../services/DataService'
 
-type SettingsProps = {}
-
-const Settings: FC<SettingsProps> = ({}) => {
+const Settings: FC = () => {
   const [settings, setSettings] = useState<SettingsType | null>()
   const [showFactoryResetConfirmation, setShowFactoryResetConfirmation] =
     useState(false)
@@ -25,7 +23,6 @@ const Settings: FC<SettingsProps> = ({}) => {
   useEffect(() => {
     async function loadData() {
       const settings = await loadSettings()
-      console.log('🥚', settings)
       setSettings(settings)
     }
 
