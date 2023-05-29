@@ -4,7 +4,7 @@
 
 It's the dashboard for the [Bedroom Clock](https://github.com/coding-lemur/bed-room-clock).
 
-![alt screenshot](screenshot.png)
+![alt screenshot](/public/screenshot.png)
 
 ## FAQ
 
