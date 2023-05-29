@@ -7,7 +7,12 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Modal from 'react-bootstrap/Modal'
 
 import { Settings as SettingsType } from '../services/types'
-import { loadSettings, restart } from '../services/DataService'
+import {
+  factoryReset,
+  loadSettings,
+  restart,
+  saveSettings
+} from '../services/DataService'
 
 type SettingsProps = {}
 
@@ -19,9 +24,9 @@ const Settings: FC<SettingsProps> = ({}) => {
 
   useEffect(() => {
     async function loadData() {
-      const data = await loadSettings()
-      console.log('🥚', data)
-      setSettings(data)
+      const settings = await loadSettings()
+      console.log('🥚', settings)
+      setSettings(settings)
     }
 
     loadData()
@@ -66,9 +71,22 @@ const Settings: FC<SettingsProps> = ({}) => {
     []
   )
 
+  const handleSaveSettings = useCallback(async () => {
+    if (!settings) {
+      console.debug('skip save settings because no settings available')
+      return
+    }
+
+    await saveSettings(settings)
+  }, [settings])
+
+  const handleFactoryReset = useCallback(async () => {
+    setShowFactoryResetConfirmation(false)
+    await factoryReset()
+  }, [])
+
   const handleRestart = useCallback(async () => {
     setShowRestartConfirmation(false)
-
     await restart()
 
     window.location.reload()
@@ -116,8 +134,10 @@ const Settings: FC<SettingsProps> = ({}) => {
           <InputGroup.Text>ms</InputGroup.Text>
         </InputGroup>
 
-        <ButtonGroup aria-label="Basic example">
-          <Button variant="primary">save settings</Button>
+        <ButtonGroup aria-label="action buttons">
+          <Button variant="primary" onClick={handleSaveSettings}>
+            save settings
+          </Button>
           <Button
             variant="secondary"
             onClick={() => setShowRestartConfirmation(true)}
@@ -142,7 +162,9 @@ const Settings: FC<SettingsProps> = ({}) => {
         </Modal.Header>
         <Modal.Body>Really, delete all your settings?</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary">Yes, do factory reset</Button>
+          <Button variant="secondary" onClick={handleFactoryReset}>
+            Yes, do factory reset
+          </Button>
           <Button
             variant="primary"
             onClick={() => setShowFactoryResetConfirmation(false)}
