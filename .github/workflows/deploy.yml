@@ -14,7 +14,7 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Build
-        run: npm run build vite build --base /bed-room-clock-dashboard/
+        run: npm run build
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
