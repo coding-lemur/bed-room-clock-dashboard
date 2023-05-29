@@ -23,9 +23,8 @@ function App() {
 
   useEffect(() => {
     async function loadData() {
-      const data = await loadInfo()
-      console.log('🐓', data)
-      setInfo(data)
+      const info = await loadInfo()
+      setInfo(info)
     }
 
     const interval = setInterval(async () => {
@@ -90,7 +89,7 @@ function App() {
       </section>
 
       <section id="sensor-values" className="mb-3">
-        <h2>Sensor Value</h2>
+        <h2>Sensor Values</h2>
         <ListGroup>
           <ListGroup.Item>
             <Data
