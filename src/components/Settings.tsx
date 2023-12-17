@@ -29,19 +29,6 @@ const Settings: FC = () => {
     loadData()
   }, [])
 
-  const handleBrightnessChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) =>
-      setSettings((oldState) =>
-        oldState
-          ? {
-              ...oldState,
-              brightness: Number.parseInt(e.target.value)
-            }
-          : null
-      ),
-    []
-  )
-
   const handleScreenOnDistanceChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) =>
       setSettings((oldState) =>
@@ -93,17 +80,6 @@ const Settings: FC = () => {
     <>
       <section id="settings" className="mb-3">
         <h2>Settings</h2>
-        <InputGroup className="mb-3">
-          <InputGroup.Text>Display Brightness</InputGroup.Text>
-          <Form.Control
-            type="number"
-            min={0}
-            max={255}
-            aria-label="display brightness"
-            value={settings?.brightness}
-            onChange={handleBrightnessChange}
-          />
-        </InputGroup>
 
         <InputGroup className="mb-3">
           <InputGroup.Text>Screen On Distance</InputGroup.Text>
