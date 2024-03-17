@@ -1,4 +1,4 @@
-import { Info, Settings } from './types'
+import type { Info, Settings } from './types'
 
 export const loadInfo = async () => {
   const resp = await fetch('/api/info')

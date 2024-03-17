@@ -1,4 +1,10 @@
-import { FC, useState, useCallback, useEffect, ChangeEvent } from 'react'
+import {
+  type FC,
+  type ChangeEvent,
+  useState,
+  useCallback,
+  useEffect
+} from 'react'
 
 import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
@@ -6,7 +12,7 @@ import Button from 'react-bootstrap/Button'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import Modal from 'react-bootstrap/Modal'
 
-import { Settings as SettingsType } from '../services/types'
+import type { Settings as SettingsType } from '../services/types'
 import {
   factoryReset,
   loadSettings,

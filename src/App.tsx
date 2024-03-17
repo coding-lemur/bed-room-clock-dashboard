@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import humanizeDuration, { Unit } from 'humanize-duration'
+import humanizeDuration, { type Unit } from 'humanize-duration'
 
 import Container from 'react-bootstrap/Container'
 import ListGroup from 'react-bootstrap/ListGroup'
